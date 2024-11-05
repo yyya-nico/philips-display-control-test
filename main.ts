@@ -14,7 +14,6 @@ async function start() {
     try {
         await connection.start();
         list.systemStart();
-        formWrapper.disabled = false;
         console.log("SignalR Connected.");
     } catch (err) {
         console.log(err);
@@ -98,6 +97,8 @@ portals.forEach(portal => {
                             range.value = luminanceInfo.current.value;
 
                             const inputSourceInfo = grepInfo('OP_60_InputSource');
+                            inputSource.value = inputSourceInfo.current.value;
+
                             if (!initComplete) {
                                 inputSourceInfo.params.forEach(param => {
                                     const option = document.createElement('option');
@@ -106,9 +107,9 @@ portals.forEach(portal => {
                                     option.textContent = optionText;
                                     inputSource.appendChild(option);
                                 });
+                                formWrapper.disabled = false;
                                 initComplete = true;
                             }
-                            inputSource.value = inputSourceInfo.current.value;
                         })();
                     break;
                 }
