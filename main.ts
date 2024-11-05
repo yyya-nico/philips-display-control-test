@@ -67,8 +67,48 @@ const portals = [
     'InstallDriver'
 ];
 
+const NAME_TO_OPTION = {
+    Normal__DisplayPort1: 'DP1',
+    Normal__DisplayPort2: 'DP2',
+    Normal__DigitalHDMI1: 'HDMI1',
+    Normal__DigitalHDMI2: 'HDMI2',
+    Normal__DigitalHDMI3: 'HDMI3',
+    Normal__VGA1: 'VGA1',
+    Normal__DSub: 'DSub',
+    Normal__DVI: 'DVI',
+    Normal__USBC1: 'USBC1',
+    Normal__USBC2: 'USBC2'
+};
+
 portals.forEach(portal => {
     connection.on(portal, data => {
+        const ok = data.err_code === 0 && !data.err_msg;
+        if (ok) {
+            (tag => {
+                const grepInfo = (target: string) => ({
+                    current: tag.osdInfo.attributeInfos.find(info => info.evcpOpCode === target) as any,
+                    params: tag.osdInfo.ddcHelInfo.supportList.find(ops => ops.name === target).supportChild as any[]
+                });
+                switch (portal) {
+                    case 'DisplayData':
+                        (() => {
+                            const luminanceInfo = grepInfo('OP_10_Luminance');
+                            range.value = luminanceInfo.current.value;
+
+                            const inputSourceInfo = grepInfo('OP_60_InputSource');
+                            inputSourceInfo.params.forEach(param => {
+                                const option = document.createElement('option');
+                                const optionText = NAME_TO_OPTION[param.name];
+                                option.value = param.value;
+                                option.textContent = optionText;
+                                inputSource.appendChild(option);
+                            });
+                            inputSource.value = inputSourceInfo.current.value;
+                        })();
+                    break;
+                }
+            })(data.tag);
+        }
         output.value = JSON.stringify(data);
     });
 });
@@ -253,34 +293,6 @@ const list = {
     },
 };
 
-const NAME_TO_OPTION = {
-    Normal__DisplayPort1: 'DP1',
-    Normal__DisplayPort2: 'DP2',
-    Normal__DigitalHDMI1: 'HDMI1',
-    Normal__DigitalHDMI2: 'HDMI2',
-    Normal__DigitalHDMI3: 'HDMI3',
-    Normal__VGA1: 'VGA1',
-    Normal__DSub: 'DSub',
-    Normal__DVI: 'DVI',
-    Normal__USBC1: 'USBC1',
-    Normal__USBC2: 'USBC2'
-};
-
-const options = [
-    {
-        name: 'Normal__DisplayPort1',
-        value: 15
-    },
-    {
-        name: 'Normal__DigitalHDMI1',
-        value: 17
-    },
-    {
-        name: 'Normal__DigitalHDMI2',
-        value: 18
-    }
-]
-
 controllerForm.addEventListener('submit', e => {
     e.preventDefault();
     const args: any = [];
@@ -289,12 +301,7 @@ controllerForm.addEventListener('submit', e => {
             args.push(range.value);
             break;
         case 'setInputSource':
-            (() => {
-                const option = inputSource.value;
-                const name = Object.keys(NAME_TO_OPTION).find(name => NAME_TO_OPTION[name] === option);
-                const value = options.find(option => option.name === name)?.value;
-                args.push(value);
-            })();
+            args.push(inputSource.value);
             break;
     }
     if (funcs.value in list) {
