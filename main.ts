@@ -125,178 +125,122 @@ const invokeWrapper = (portal: string, ...args: any[]) => {
 };
 
 const list = {
-    systemStart() {
-        return invokeWrapper('start');
-    },
-    rescan() {
-        return invokeWrapper('Rescan');
-    },
-    getDisplayData() {
-        return invokeWrapper('GetDisplayData');
-    },
-    getGameSyncData() {
-        return invokeWrapper('GetGameSyncData2');
-    },
-    setMontiorMode(value) {
-        return invokeWrapper('SetMonitorMode', value);
-    },
-    checkUpstreamCable() {
-        return invokeWrapper('CheckUpstreamCable');
-    },
-    getMonitorConnectedCount() {
-        return invokeWrapper('GetMonitorCount');
-    },
-    getFirmwareData() {
-        return invokeWrapper('GetDeviceList');
-    },
-    installDriver(type, path) {
-        return invokeWrapper('InstallDriver', type, path);
-    },
-    updateFirmware(modelName, deviceType, binPath) {
-        return invokeWrapper('UpdateFirmware', modelName, deviceType, binPath);
-    },
+    systemStart: () =>
+        invokeWrapper('start'),
+    rescan: () =>
+        invokeWrapper('Rescan'),
+    getDisplayData: () =>
+        invokeWrapper('GetDisplayData'),
+    getGameSyncData: () =>
+        invokeWrapper('GetGameSyncData2'),
+    setMontiorMode: (value) =>
+        invokeWrapper('SetMonitorMode', value),
+    checkUpstreamCable: () =>
+        invokeWrapper('CheckUpstreamCable'),
+    getMonitorConnectedCount: () =>
+        invokeWrapper('GetMonitorCount'),
+    getFirmwareData: () =>
+        invokeWrapper('GetDeviceList'),
+    installDriver: (type, path) =>
+        invokeWrapper('InstallDriver', type, path),
+    updateFirmware: (modelName, deviceType, binPath) =>
+        invokeWrapper('UpdateFirmware', modelName, deviceType, binPath),
     /** ======================= remote control ======================= */
-    getDeviceBodyData() {
-        return invokeWrapper('GetRemoteControlDeviceBodyData');
-    },
-    getSupportData() {
-        return invokeWrapper('GetRemoteControlSupportData');
-    },
-    getConfigData() {
-        return invokeWrapper('GetRemoteControlConfigData');
-    },
-    setOsdBatch(data) {
-        return invokeWrapper('SetOSDs', data);
-    },
+    getDeviceBodyData: () =>
+        invokeWrapper('GetRemoteControlDeviceBodyData'),
+    getSupportData: () =>
+        invokeWrapper('GetRemoteControlSupportData'),
+    getConfigData: () =>
+        invokeWrapper('GetRemoteControlConfigData'),
+    setOsdBatch: (data) =>
+        invokeWrapper('SetOSDs', data),
     /** ======================= picture ======================= */
-    setPictureFormat(value) {
-        return invokeWrapper('SetOSD', 'OP_86_DisplayScaling', value);
-    },
-    setBrightness(value) {
-        return invokeWrapper('SetOSD', 'OP_10_Luminance', value);
-    },
-    setContrast(value) {
-        return invokeWrapper('SetOSD', 'OP_12_Contrast', value);
-    },
-    setResolutionNotify(value) {
-        return invokeWrapper('SetOSD', 'OP_E9_ResolutionNotifier', value);
-    },
-    setResolution(value) {
-        return invokeWrapper('SetResolution', value);
-    },
-    setInputSource(value) {
-        return invokeWrapper('InputsourceChange', value, -1);
-    },
-    setInputSourceAutoEnable(value) {
-        return invokeWrapper('SetOSD', 'OP_ED_InputAuto', value ? 1 : 0);
-    },
-    setPIPPBP(data) {
-        return invokeWrapper('SetPIPPBP', data);
-    },
-    swapPippbp() {
-        return invokeWrapper('PIPPBPSwap');
-    },
+    setPictureFormat: (value) =>
+        invokeWrapper('SetOSD', 'OP_86_DisplayScaling', value),
+    setBrightness: (value) =>
+        invokeWrapper('SetOSD', 'OP_10_Luminance', value),
+    setContrast: (value) =>
+        invokeWrapper('SetOSD', 'OP_12_Contrast', value),
+    setResolutionNotify: (value) =>
+        invokeWrapper('SetOSD', 'OP_E9_ResolutionNotifier', value),
+    setResolution: (value) =>
+        invokeWrapper('SetResolution', value),
+    setInputSource: (value) =>
+        invokeWrapper('InputsourceChange', value, -1),
+    setInputSourceAutoEnable: (value) =>
+        invokeWrapper('SetOSD', 'OP_ED_InputAuto', value ? 1 : 0),
+    setPIPPBP: (data) =>
+        invokeWrapper('SetPIPPBP', data),
+    swapPippbp: () =>
+        invokeWrapper('PIPPBPSwap'),
     /** ======================= color ======================= */
-    setColorTemperature(value) {
-        return invokeWrapper('SetOSD', 'OP_14_SelectColorPreset', value);
-    },
-    setColorTemperatureRed(value) {
-        return invokeWrapper('SetOSD', 'OP_16_VideoGainDriveRed', value);
-    },
-    setColorTemperatureGreen(value) {
-        return invokeWrapper('SetOSD', 'OP_18_VideoGainDriveGreen', value);
-    },
-    setColorTemperatureBlue(value) {
-        return invokeWrapper('SetOSD', 'OP_1A_VideoGainDriveBlue', value);
-    },
-    setBlackLevel(value) {
-        return invokeWrapper('SetOSD', 'OP_92_TVBlackLevelLuminance', value);
-    },
-    setGamma(value) {
-        return invokeWrapper('SetOSD', 'OP_72_Gamma', value);
-    },
-    setSamrtImage(value) {
-        return invokeWrapper('SetOSD', 'OP_DC_DisplayApplication', value);
-    },
-    gameSyncStart(value) {
-        return invokeWrapper('GameSyncStart', value ? 1 : 0);
-    },
-    processGameSyncStart(processName) {
-        return invokeWrapper('GameModeStart', processName);
-    },
-    setProcessGameSync(path) {
-        var mode = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -1;
-        return invokeWrapper('GameModeSet2', path, mode);
-    },
-    removeProcessGameSync(path) {
-        return invokeWrapper('GameSyncRemove2', path);
-    },
+    setColorTemperature: (value) =>
+        invokeWrapper('SetOSD', 'OP_14_SelectColorPreset', value),
+    setColorTemperatureRed: (value) =>
+        invokeWrapper('SetOSD', 'OP_16_VideoGainDriveRed', value),
+    setColorTemperatureGreen: (value) =>
+        invokeWrapper('SetOSD', 'OP_18_VideoGainDriveGreen', value),
+    setColorTemperatureBlue: (value) =>
+        invokeWrapper('SetOSD', 'OP_1A_VideoGainDriveBlue', value),
+    setBlackLevel: (value) =>
+        invokeWrapper('SetOSD', 'OP_92_TVBlackLevelLuminance', value),
+    setGamma: (value) =>
+        invokeWrapper('SetOSD', 'OP_72_Gamma', value),
+    setSamrtImage: (value) =>
+        invokeWrapper('SetOSD', 'OP_DC_DisplayApplication', value),
+    gameSyncStart: (value) =>
+        invokeWrapper('GameSyncStart', value ? 1 : 0),
+    processGameSyncStart: (processName) =>
+        invokeWrapper('GameModeStart', processName),
+    setProcessGameSync: (path, mode = -1) =>
+        invokeWrapper('GameModeSet2', path, mode),
+    removeProcessGameSync: (path) =>
+        invokeWrapper('GameSyncRemove2', path),
     /** ======================= setting ======================= */
-    monitorChange(name) {
-        return invokeWrapper('MonitorChange', name);
-    },
-    setAudioMute(value) {
-        return invokeWrapper('SetOSD', 'OP_8D_AudioMute', value);
-    },
-    setAudio(value) {
-        return invokeWrapper('SetOSD', 'OP_62_AudioSpeakerVolume', value);
-    },
-    readOSD() {
-        return invokeWrapper('ReadOSD', 'OP_AA_ScreenOrientation');
-    },
-    setOrientation(value) {
-        return invokeWrapper('SetOrientation', value);
-    },
-    restoreFactoryDefaults(displayName) {
-        return invokeWrapper('RestoreFactoryDefaults', displayName);
-    },
+    monitorChange: (name) =>
+        invokeWrapper('MonitorChange', name),
+    setAudioMute: (value) =>
+        invokeWrapper('SetOSD', 'OP_8D_AudioMute', value),
+    setAudio: (value) =>
+        invokeWrapper('SetOSD', 'OP_62_AudioSpeakerVolume', value),
+    readOSD: () =>
+        invokeWrapper('ReadOSD', 'OP_AA_ScreenOrientation'),
+    setOrientation: (value) =>
+        invokeWrapper('SetOrientation', value),
+    restoreFactoryDefaults: (displayName) =>
+        invokeWrapper('RestoreFactoryDefaults', displayName),
     /** ======================= power ======================= */
-    setEcoMode(data) {
-        return invokeWrapper('SetECOModeData', data);
-    },
-    setActivationTimer(isActive) {
-        return invokeWrapper('SetActivationTimer', isActive ? 1 : 0);
-    },
-    setStandbyTimer(value) {
-        return invokeWrapper('SetStandbyTimer', value);
-    },
-    setShutdownTimer(value) {
-        return invokeWrapper('SetShutdownTimer', value);
-    },
-    setActivationShutdown(isActive) {
-        return invokeWrapper('SetActivationShutdown', isActive ? 1 : 0);
-    },
-    setHourMinute(value) {
-        return invokeWrapper('SetHourMinute', value);
-    },
-    setDayOfWeeks(days) {
-        return invokeWrapper('SetDayOfWeeks', JSON.stringify(days));
-    },
-    standby() {
-        return invokeWrapper('ImmediateStandby');
-    },
-    powerOff() {
-        return invokeWrapper('ImmediatePowerOff');
-    },
-    setPowerLed(value) {
-        return invokeWrapper('SetOSD', 'OP_F2_PowerLED', value);
-    },
+    setEcoMode: (data) =>
+        invokeWrapper('SetECOModeData', data),
+    setActivationTimer: (isActive) =>
+        invokeWrapper('SetActivationTimer', isActive ? 1 : 0),
+    setStandbyTimer: (value) =>
+        invokeWrapper('SetStandbyTimer', value),
+    setShutdownTimer: (value) =>
+        invokeWrapper('SetShutdownTimer', value),
+    setActivationShutdown: (isActive) =>
+        invokeWrapper('SetActivationShutdown', isActive ? 1 : 0),
+    setHourMinute: (value) =>
+        invokeWrapper('SetHourMinute', value),
+    setDayOfWeeks: (days) =>
+        invokeWrapper('SetDayOfWeeks', JSON.stringify(days)),
+    standby: () =>
+        invokeWrapper('ImmediateStandby'),
+    powerOff: () =>
+        invokeWrapper('ImmediatePowerOff'),
+    setPowerLed: (value) =>
+        invokeWrapper('SetOSD', 'OP_F2_PowerLED', value),
     /** ======================= other ======================= */
-    setOsdLanguage(value) {
-        return invokeWrapper('SetOSD', 'OP_CC_OSDLanguage', value);
-    },
-    splitScreenInit() {
-        return invokeWrapper('SplitScreenIni');
-    },
-    getSplitScreenData() {
-        return invokeWrapper('GetSplitScreenId');
-    },
-    setSplitScreen(displayName, value) {
-        return invokeWrapper('SetSplitScreen', displayName, value);
-    },
-    splitScreenExit() {
-        return invokeWrapper('ExitScreen');
-    },
+    setOsdLanguage: (value) =>
+        invokeWrapper('SetOSD', 'OP_CC_OSDLanguage', value),
+    splitScreenInit: () =>
+        invokeWrapper('SplitScreenIni'),
+    getSplitScreenData: () =>
+        invokeWrapper('GetSplitScreenId'),
+    setSplitScreen: (displayName, value) =>
+        invokeWrapper('SetSplitScreen', displayName, value),
+    splitScreenExit: () =>
+        invokeWrapper('ExitScreen'),
 };
 
 controllerForm.addEventListener('submit', e => {
