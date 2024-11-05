@@ -80,6 +80,8 @@ const NAME_TO_OPTION = {
     Normal__USBC2: 'USBC2'
 };
 
+let initComplete = false;
+
 portals.forEach(portal => {
     connection.on(portal, data => {
         const ok = data.err_code === 0 && !data.err_msg;
@@ -96,13 +98,16 @@ portals.forEach(portal => {
                             range.value = luminanceInfo.current.value;
 
                             const inputSourceInfo = grepInfo('OP_60_InputSource');
-                            inputSourceInfo.params.forEach(param => {
-                                const option = document.createElement('option');
-                                const optionText = NAME_TO_OPTION[param.name];
-                                option.value = param.value;
-                                option.textContent = optionText;
-                                inputSource.appendChild(option);
-                            });
+                            if (!initComplete) {
+                                inputSourceInfo.params.forEach(param => {
+                                    const option = document.createElement('option');
+                                    const optionText = NAME_TO_OPTION[param.name];
+                                    option.value = param.value;
+                                    option.textContent = optionText;
+                                    inputSource.appendChild(option);
+                                });
+                                initComplete = true;
+                            }
                             inputSource.value = inputSourceInfo.current.value;
                         })();
                     break;
@@ -296,33 +301,15 @@ const list = {
 controllerForm.addEventListener('submit', e => {
     e.preventDefault();
     const args: any = [];
-    switch (funcs.value) {
-        case 'setBrightness':
-            args.push(range.value);
-            break;
-        case 'setInputSource':
-            args.push(inputSource.value);
-            break;
-    }
     if (funcs.value in list) {
         list[funcs.value](...args);
     }
 });
 
-funcs.addEventListener('change', () => {
-    switch (funcs.value) {
-        case 'setBrightness':
-            range.disabled = false;
-            inputSource.disabled = true;
-            break;
-        case 'setInputSource':
-            range.disabled = true;
-            inputSource.disabled = false;
-            break;
+range.addEventListener('change', () => {
+    list.setBrightness(range.value);
+});
 
-        default:
-            range.disabled = true;
-            inputSource.disabled = true;
-            break;
-    }
+inputSource.addEventListener('change', () => {
+    list.setInputSource(inputSource.value);
 });
