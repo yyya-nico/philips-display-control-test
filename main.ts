@@ -93,13 +93,13 @@ portals.forEach(portal => {
                 switch (portal) {
                     case 'DisplayData':
                         (() => {
-                            const luminanceInfo = grepInfo('OP_10_Luminance');
-                            range.value = luminanceInfo.current.value;
-
                             const inputSourceInfo = grepInfo('OP_60_InputSource');
                             inputSource.value = inputSourceInfo.current.value;
 
                             if (!initComplete) {
+                                const luminanceInfo = grepInfo('OP_10_Luminance');
+                                range.value = luminanceInfo.current.value;
+
                                 inputSourceInfo.params.forEach(param => {
                                     const option = document.createElement('option');
                                     const optionText = NAME_TO_OPTION[param.name];
